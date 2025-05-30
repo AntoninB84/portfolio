@@ -16,7 +16,8 @@
   "dashboardPage": {
     "navlinks": {
       "home": "Dashboard",
-      "projects": "Projects"
+      "projects": "Projects",
+      "technos": "Technologies"
     },
     "signout": "Sign out"
   }

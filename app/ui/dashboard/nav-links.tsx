@@ -3,6 +3,7 @@
 import {
   HomeIcon,
   DocumentDuplicateIcon,
+  Cog8ToothIcon
 } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
@@ -17,6 +18,7 @@ export default function NavLinks() {
   const links = [
     { name: t('home'), href: '/dashboard', icon: HomeIcon },
     { name: t('projects'), href: '/dashboard/projects', icon: DocumentDuplicateIcon },
+    { name: t('technos'), href: '/dashboard/technologies', icon: Cog8ToothIcon },
   ];
 
   return (

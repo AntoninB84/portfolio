@@ -25,33 +25,33 @@ export default function LoginForm() {
         <div className="w-full">
           <div>
             <label
-              className="mb-2 mt-5 block text-sm font-medium"
+              className="input-label"
               htmlFor="email"
             >
               {t('email')}
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border border-gray-400 py-[9px] pl-10 text-sm outline-1"
+                className="peer custom-input"
                 id="email"
                 type="email"
                 name="email"
                 placeholder={t('email_placeholder')}
                 required
               />
-              <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <AtSymbolIcon className="input-icon" />
             </div>
           </div>
           <div className="mt-4">
             <label
-              className="mb-2 mt-5 block text-sm font-medium"
+              className="input-label"
               htmlFor="password"
             >
               {t('password')}
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border border-gray-400 py-[9px] pl-10 text-sm outline-1"
+                className="peer custom-input"
                 id="password"
                 type="password"
                 name="password"
@@ -59,7 +59,7 @@ export default function LoginForm() {
                 required
                 minLength={6}
               />
-              <KeyIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <KeyIcon className="input-icon" />
             </div>
           </div>
         <div
