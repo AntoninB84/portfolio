@@ -3,17 +3,17 @@
 import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { quicksand } from '../fonts';
-
-const links = [
-    { name: "About me", href: '/home', },
-    { name: "Projects", href: '/home/projects', },
-    { name: "Contact me", href: '/home/contact', },
-    { name: "Log in", href: '/login', },
-];
+import { useTranslations } from 'next-intl';
 
 export default function HeaderLinks() {
     const pathName = usePathname();
+    const t = useTranslations('menu');
+    const links = [
+        { name: t('about'), href: '/home', },
+        { name: t('projects'), href: '/home/projects', },
+        { name: t('contact'), href: '/home/contact', },
+        { name: t('login'), href: '/login', },
+    ];
 
     return (
         <>
@@ -24,10 +24,11 @@ export default function HeaderLinks() {
                     href={link.href}
                     className= {clsx(
                         " uppercase font-bold" +
-                        " hover:text-amber-700 hover:dark:text-cyan-800" + 
+                        " text-neutral-500" + 
+                        " hover:text-neutral-700 hover:dark:text-neutral-100" + 
                         " text-md md:text-lg",
                         {
-                            "text-amber-500 dark:text-cyan-600" : link.href === pathName,
+                            " mainColor " : link.href === pathName,
                         }
                     )}
                 >

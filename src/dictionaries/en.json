@@ -1,0 +1,23 @@
+{
+  "menu": {
+    "about": "About me",
+    "projects": "Projects",
+    "contact": "Contact",
+    "login": "Login"
+  },
+  "loginPage": {
+    "title": "Please login to continue",
+    "email": "Email",
+    "email_placeholder": "Enter your email address",
+    "password": "Password",
+    "password_placeholder": "Enter password",
+    "login_button_cta": "Log in"
+  },
+  "dashboardPage": {
+    "navlinks": {
+      "home": "Dashboard",
+      "projects": "Projects"
+    },
+    "signout": "Sign out"
+  }
+}

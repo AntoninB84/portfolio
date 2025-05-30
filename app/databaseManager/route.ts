@@ -1,14 +1,18 @@
 'use server';
 
 import postgres from 'postgres';
-import { userTableQuery } from '../../src/_objects/user';
 import bcryptjs from 'bcryptjs';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
 async function createUserTable() {
   // await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-	const data = await sql`${userTableQuery}`;
+	const data = await sql`CREATE TABLE IF NOT EXISTS users (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL
+  );`;
 	return data;
 }
 
@@ -19,7 +23,7 @@ async function createAdmin() {
     const hashedPassword = await bcryptjs.hash(password, 10);
     return sql`
         INSERT INTO users (id, name, email, password)
-        VALUES (${adminId}, Admin, ${adminEmail}, ${hashedPassword})
+        VALUES (${adminId}, 'Admin', ${adminEmail}, ${hashedPassword})
         ON CONFLICT (id) DO NOTHING;
     `;
 }
@@ -27,8 +31,8 @@ async function createAdmin() {
 export async function GET() {
   try {
     const result = await sql.begin((sql) => [
-      createUserTable(),
-      createAdmin(),
+      // createUserTable(),
+      // createAdmin(),
     ]);
 
     return Response.json({ message: 'Database created successfully' });
