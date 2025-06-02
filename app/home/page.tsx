@@ -1,4 +1,4 @@
-import styles from '../ui/home/home.module.css';
+import styles from '../ui/home.module.css';
 
 export default function Home() {
     return (

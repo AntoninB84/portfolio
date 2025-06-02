@@ -5,8 +5,15 @@
     "contact": "Contact",
     "login": "Login"
   },
+  "themeToggler": {
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
   "loginPage": {
-    "title": "Please login to continue",
+    "title": "Admin dashboard",
+    "subtitle": "Please login to continue",
     "email": "Email",
     "email_placeholder": "Enter your email address",
     "password": "Password",
@@ -20,5 +27,6 @@
       "technos": "Technologies"
     },
     "signout": "Sign out"
-  }
+  },
+  "back": "Go back"
 }

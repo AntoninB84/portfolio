@@ -79,7 +79,7 @@ export async function GET() {
       // createAdmin(),
       // createProjectTable(),
       // createTechnoTable(),
-      createProjectTechnoTable(),
+      // createProjectTechnoTable(),
       // createObjectImageTable()
     ]);
 

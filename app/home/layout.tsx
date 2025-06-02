@@ -1,5 +1,5 @@
-import HeaderLinks from "../ui/home/header-links";
-import Footer from "../ui/home/footer";
+import HeaderLinks from "../../components/ui/home/header-links";
+import Footer from "../../components/ui/home/footer";
 
 export default function HomeLayout({
   children,

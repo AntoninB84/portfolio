@@ -5,5 +5,5 @@ const nextConfig: NextConfig = {
   /* config options here */
 };
 
-const withNextIntl = createNextIntlPlugin('./src/dictionaries/request.ts');
+const withNextIntl = createNextIntlPlugin('./lib/dictionaries/request.ts');
 export default withNextIntl(nextConfig);
