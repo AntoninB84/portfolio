@@ -24,11 +24,13 @@ export default function HeaderLinks() {
                     href={link.href}
                     className= {clsx(
                         " uppercase font-bold" +
-                        " text-neutral-500" + 
                         " hover:text-neutral-700 hover:dark:text-neutral-100" + 
                         " text-md md:text-lg",
                         {
-                            " mainColor " : link.href === pathName,
+                            " text-main " : link.href === pathName,
+                        },
+                        {
+                            " text-neutral-500 " : link.href !== pathName,
                         }
                     )}
                 >

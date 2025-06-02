@@ -5,6 +5,11 @@ export type Techno = {
   name: string;
 };
 
+export type TechnoForm = {
+  id: string;
+  name: string;
+};
+
 export const TechnoFormSchema = z.object({
     id: z.string(),
     name: z.string(),

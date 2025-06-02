@@ -1,8 +1,6 @@
 'use client';
 
-import {AtSymbolIcon,KeyIcon,ExclamationCircleIcon} from '@heroicons/react/24/outline';
-import { ArrowRightIcon } from '@heroicons/react/20/solid';
-// import { Button } from '../ui/button';
+import {ExclamationCircleIcon} from '@heroicons/react/24/outline';
 import { useActionState } from 'react';
 import { authenticate } from './actions';
 import { useSearchParams } from 'next/navigation';
@@ -50,21 +48,25 @@ export default function LoginForm() {
               minLength={6}
             />
           </div>
-        <div
-          className="flex h-8 items-end space-x-1 mb-4"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          {errorMessage && (
-            <>
-              <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-              <p className="text-sm text-red-500">{errorMessage}</p>
-            </>
-          )}
-        </div>
+          <div
+            className="flex h-8 items-end space-x-1 mb-4"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            {errorMessage && (
+              <>
+                <ExclamationCircleIcon className="h-5 w-5 text-error" />
+                <p className="text-sm text-error">{errorMessage}</p>
+              </>
+            )}
+          </div>
         </div>
        <input type="hidden" name="redirectTo" value={callbackUrl} />
-        <Button className='w-full uppercase font-bold'>
+        <Button className='w-full 
+          uppercase font-bold 
+          bg-button-background text-button-foreground
+          hover:bg-button-foreground hover:text-button-background
+          '>
            {t('login_button_cta')}
         </Button>
       </div>

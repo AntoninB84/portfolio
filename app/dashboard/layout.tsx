@@ -1,4 +1,4 @@
-import SideNav from "../ui/dashboard/sidenav";
+import SideNav from "@/components/ui/dashboard/sidenav";
 
 export default function Layout({
   children,
@@ -10,7 +10,7 @@ export default function Layout({
       <div className="w-full flex-none md:w-64">
         <SideNav />
       </div>
-      <div className="flex-grow p-6 md:overflow-y-auto md:p-12">{children}</div>
+      <div className="flex-grow md:overflow-y-auto px-8 md:px-12 pt-16">{children}</div>
     </div>
   );
 }

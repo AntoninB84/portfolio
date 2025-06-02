@@ -1,6 +1,7 @@
+'use server';
+
 import postgres from 'postgres';
-import { Techno, TechnoFormSchema } from '../_objects/techno';
-import { z } from 'zod';
+import { Techno, TechnoForm, TechnoFormSchema } from '../_objects/techno';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
@@ -82,6 +83,26 @@ export async function fetchTechnos() {
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch technos data.');
+  }
+}
+
+
+export async function fetchTechnoById(id: string) {
+  try {
+    const data = await sql<TechnoForm[]>`
+      SELECT
+        technos.id,
+        technos.name
+      FROM technos
+      WHERE technos.id = ${id};
+    `;
+
+    const techno = data.map((techno) => ({...techno}));
+
+    return techno[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch techno.');
   }
 }
 

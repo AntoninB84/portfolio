@@ -9,7 +9,6 @@ import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import styles from '../../ui/dashboard/dashboard.module.css';
 
 export default function NavLinks() {
   const pathName = usePathname();
@@ -18,7 +17,7 @@ export default function NavLinks() {
   const links = [
     { name: t('home'), href: '/dashboard', icon: HomeIcon },
     { name: t('projects'), href: '/dashboard/projects', icon: DocumentDuplicateIcon },
-    { name: t('technos'), href: '/dashboard/technologies', icon: Cog8ToothIcon },
+    { name: t('technos'), href: '/dashboard/technos', icon: Cog8ToothIcon },
   ];
 
   return (
@@ -30,9 +29,9 @@ export default function NavLinks() {
             key={link.name}
             href={link.href}
             className= {clsx(
-            `cardAB ${styles.menuCard}`,
+            "menuCard",
             {
-              "mainColor": link.href === pathName,
+              " text-main ": link.href === pathName,
             })}
           >
             <LinkIcon className="w-6" />

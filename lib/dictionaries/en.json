@@ -28,5 +28,27 @@
     },
     "signout": "Sign out"
   },
-  "back": "Go back"
+  "dashboardTechnos": {
+    "index": {
+      "title" : "Technologies",
+      "create-button": "Create techno",
+      "name-column-title": "Name",
+      "actions-column-title": "Actions"
+    },
+    "create": {
+      "title": "Create a Techno",
+      "name-label": "Name",
+      "name-placeholder": "Enter a name"
+    },
+    "edit": {
+      "title": "Update techno : {name}"
+    },
+    "delete-dialog": {
+      "title": "Delete this techno ?",
+      "description": "You are about to delete <b>{name}</b>. Are you sure ? This action is not reversible."
+    }
+  },
+  "back": "Go back",
+  "validate": "Validate",
+  "cancel": "Cancel"
 }

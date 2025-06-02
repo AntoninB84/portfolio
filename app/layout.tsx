@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import {NextIntlClientProvider} from 'next-intl';
 import {getLocale} from 'next-intl/server';
-import { quicksand } from "./ui/fonts";
+import { quicksand } from "./fonts";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/ui/theme-toggle-button";
@@ -30,7 +30,7 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <div className="absolute right-3 top-3">
+            <div className="absolute right-3 top-[90px] md:top-3">
               <ModeToggle></ModeToggle>
             </div>
             {children}

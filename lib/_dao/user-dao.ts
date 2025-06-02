@@ -1,3 +1,5 @@
+'use server';
+
 import postgres from 'postgres';
 import { User } from '../_objects/user';
 

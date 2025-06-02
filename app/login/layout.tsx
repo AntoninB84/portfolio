@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { quicksand } from "../ui/fonts";
+import { quicksand } from "../fonts";
 
 export const metadata: Metadata = {
   title: "Dashboard - Login",

@@ -1,6 +1,7 @@
+import { Card } from "@/components/ui/card";
 
 export default function Dashboard() {
     return (
-        <>Dashboard</>
+        <Card>Dashboard</Card>
     );
 }
