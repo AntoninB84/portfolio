@@ -2,10 +2,10 @@ export type ObjectImage = {
   id: string;
   objectId: string;
   objectType: ImageObjectType;
-  imageUrl: string;
+  fileName: string;
 };
 
-enum ImageObjectType {
-  Techno,
-  Project
+export enum ImageObjectType {
+  Techno = 'Techno',
+  Project = "Project"
 }

@@ -4,6 +4,9 @@ import postgres from 'postgres';
 import { Techno, TechnoForm, TechnoFormSchema } from '../_objects/techno';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { uploadFile } from '../upload-actions';
+import { createObjectImage } from './objectImage-dao';
+import { ImageObjectType } from '../_objects/objectImage';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require'});
 
@@ -13,6 +16,7 @@ const UpdateTechno = TechnoFormSchema.omit({id: true});
 export type TechnoFormState = {
   errors?: {
     name?: string[];
+    logo?: string[];
   };
   message?: string | null;
 };
@@ -47,8 +51,9 @@ export async function createTechno(prevState: TechnoFormState, formData: FormDat
 }
 
 export async function updateTechno(id: string, prevState: TechnoFormState, formData: FormData) {
-    const validatedFields = UpdateTechno.safeParse({
+    const validatedFields = await UpdateTechno.safeParseAsync({
         name: formData.get('name'),
+        logo: formData.get('logo')
     });
 
     if (!validatedFields.success) {
@@ -58,7 +63,8 @@ export async function updateTechno(id: string, prevState: TechnoFormState, formD
       };
     }
 
-    const { name } = validatedFields.data;
+    const { name, logo } = validatedFields.data;
+    const techno = await fetchTechnoById(id);
 
     try {
         await sql`
@@ -66,6 +72,7 @@ export async function updateTechno(id: string, prevState: TechnoFormState, formD
             SET name = ${name}
             WHERE id = ${id}
         `;
+        // await createObjectImage(logo, ImageObjectType.Techno, id);
     } catch (error) {
         return {
             message: 'Database Error: Failed to Update Techno.',
@@ -92,9 +99,11 @@ export async function fetchTechnoById(id: string) {
     const data = await sql<TechnoForm[]>`
       SELECT
         technos.id,
-        technos.name
-      FROM technos
-      WHERE technos.id = ${id};
+        technos.name,
+        objectImages.id as logoId
+      FROM technos 
+      LEFT JOIN objectImages ON objectImages.objectId = technos.id  
+      WHERE technos.id = ${id} AND objectImages.objectType = ${ImageObjectType.Techno};
     `;
 
     const techno = data.map((techno) => ({...techno}));

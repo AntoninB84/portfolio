@@ -38,13 +38,36 @@
     "create": {
       "title": "Create a Techno",
       "name-label": "Name",
-      "name-placeholder": "Enter a name"
+      "name-placeholder": "Enter a name",
+      "logo-label": "Logo"
     },
     "edit": {
       "title": "Update techno : {name}"
     },
     "delete-dialog": {
       "title": "Delete this techno ?",
+      "description": "You are about to delete <b>{name}</b>. Are you sure ? This action is not reversible."
+    }
+  },
+  "dashboardProjects": {
+    "index": {
+      "title" : "Projects",
+      "create-button": "Create project",
+      "name-column-title": "Name",
+      "actions-column-title": "Actions"
+    },
+    "create": {
+      "title": "Create a Project",
+      "name-label": "Name",
+      "name-placeholder": "Enter a name",
+      "year-label": "Year",
+      "description-label": "Description"
+    },
+    "edit": {
+      "title": "Update project : {name}"
+    },
+    "delete-dialog": {
+      "title": "Delete this project ?",
       "description": "You are about to delete <b>{name}</b>. Are you sure ? This action is not reversible."
     }
   },

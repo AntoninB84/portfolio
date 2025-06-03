@@ -7,6 +7,7 @@ import { useActionState } from 'react';
 import { Button } from '../../button';
 import { Input } from '../../input';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 
 export default function EditTechnoForm({
   techno,
@@ -43,6 +44,35 @@ export default function EditTechnoForm({
           <div id="name-error" aria-live="polite" aria-atomic="true">
             {state.errors?.name 
             && state.errors.name.map((error: string) => (
+                <p className='mt-2 text-sm text-error' key={error}>{error}</p>
+              ))}
+          </div>
+        </div>
+
+        {/* logo */}
+        <div className="mb-4">
+          <label htmlFor="logo" className="mb-2 block text-sm font-medium">
+            {t('dashboardTechnos.create.logo-label')}
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <Input
+                id="logo"
+                name="logo"
+                type="file"
+                aria-describedby='logo-error'
+                // required
+            />
+            {/* <Image src={"/api/media-stream?id="+techno.logoid} alt="logo" width={50} height={50}/> */}
+            <Image 
+              src={`/uploads/${techno.logofilename}`}
+              alt="logo" 
+              width={50} height={50}
+              className='pt-4'
+            />
+          </div>
+          <div id="logo-error" aria-live="polite" aria-atomic="true">
+            {state.errors?.logo 
+            && state.errors.logo.map((error: string) => (
                 <p className='mt-2 text-sm text-error' key={error}>{error}</p>
               ))}
           </div>

@@ -12,6 +12,11 @@ export const authConfig = {
                 if (isLoggedIn) return true;
                 return false;
             } else if (isLoggedIn) {
+                //Not safe temporary workaround
+                const isUploadedImage = nextUrl.pathname.startsWith('/uploads');
+                if(isUploadedImage){
+                    return true;
+                }
                 return Response.redirect(new URL('/dashboard', nextUrl));
             }
             return true;
