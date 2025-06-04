@@ -60,15 +60,14 @@ export default function EditTechnoForm({
                 name="logo"
                 type="file"
                 aria-describedby='logo-error'
-                // required
             />
             {/* <Image src={"/api/media-stream?id="+techno.logoid} alt="logo" width={50} height={50}/> */}
-            <Image 
+            {techno.logofilename && <Image 
               src={`/uploads/${techno.logofilename}`}
               alt="logo" 
               width={50} height={50}
               className='pt-4'
-            />
+            />}
           </div>
           <div id="logo-error" aria-live="polite" aria-atomic="true">
             {state.errors?.logo 

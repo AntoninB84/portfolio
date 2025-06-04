@@ -21,11 +21,11 @@ export const technoIndexColumns: ColumnDef<Techno>[] = [
     },
     {
         id: 'actions',
-        header: "Actions",
+        header: () => <div className="text-right">Actions</div>,
         cell: ({ row }) => {
             const techno = row.original;
             return (
-                <div>
+                <div className="text-right">
                     <Link className="mr-4" href={`/dashboard/technos/${techno.id}/edit`}>
                         <Button >
                             <PencilIcon/>

@@ -4,7 +4,7 @@ export type Techno = {
   id: string;
   name: string;
   logoId: string;
-  logoFileName: string;
+  logofilename: string;
 };
 
 export type TechnoForm = {

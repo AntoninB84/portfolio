@@ -15,7 +15,7 @@ export default function CreateTechnoForm() {
 
   return (
     <form action={formAction} aria-describedby='form-error'>
-      <div className="rounded-md">
+      <div>
     
         {/* Name */}
         <div className="mb-4">
@@ -35,6 +35,28 @@ export default function CreateTechnoForm() {
           <div id="name-error" aria-live="polite" aria-atomic="true">
             {state.errors?.name 
             && state.errors.name.map((error: string) => (
+                <p className='mt-2 text-sm text-error' key={error}>{error}</p>
+              ))}
+          </div>
+        </div>
+
+        {/* logo */}
+        <div className="mb-4">
+          <label htmlFor="logo" className="mb-2 block text-sm font-medium">
+            {t('dashboardTechnos.create.logo-label')}
+          </label>
+          <div className="relative mt-2 rounded-md">
+            <Input
+                id="logo"
+                name="logo"
+                type="file"
+                aria-describedby='logo-error'
+                required
+            />
+          </div>
+          <div id="logo-error" aria-live="polite" aria-atomic="true">
+            {state.errors?.logo 
+            && state.errors.logo.map((error: string) => (
                 <p className='mt-2 text-sm text-error' key={error}>{error}</p>
               ))}
           </div>

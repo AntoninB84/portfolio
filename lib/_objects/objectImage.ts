@@ -2,7 +2,7 @@ export type ObjectImage = {
   id: string;
   objectId: string;
   objectType: ImageObjectType;
-  fileName: string;
+  filename: string;
 };
 
 export enum ImageObjectType {

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useActionState } from 'react';
-import { createProject, ProjectFormState } from '@/lib/_dao/project-dao';
+import { updateProject, ProjectFormState } from '@/lib/_dao/project-dao';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useTranslations } from 'next-intl';
@@ -10,11 +10,13 @@ import { Techno } from '@/lib/_objects/techno';
 import { Label } from '../../label';
 import { Textarea } from '../../textarea';
 import { Checkbox } from '../../checkbox';
+import { Project } from '@/lib/_objects/project';
 
-export default function CreateProjectForm({technos}: {technos: Techno[]}) {
+export default function EditProjectForm({project, technos}: {project: Project, technos: Techno[]}) {
 
-  const initialState: ProjectFormState = { message: null, errors: {}};
-  const [state, formAction] = useActionState(createProject, initialState);
+   const updateProjectWithId = updateProject.bind(null, project.id);
+   const initialState: ProjectFormState = { message: null, errors: {}};
+   const [state, formAction] = useActionState(updateProjectWithId, initialState);
 
   const t = useTranslations();
 
@@ -33,6 +35,7 @@ export default function CreateProjectForm({technos}: {technos: Techno[]}) {
                   name="name"
                   type="string"
                   placeholder={t('dashboardProjects.create.name-placeholder')}
+                  defaultValue={project.name}
                   aria-describedby='name-error'
                   required
               />
@@ -57,7 +60,7 @@ export default function CreateProjectForm({technos}: {technos: Techno[]}) {
                   name="year"
                   type="number"
                   step={1}
-                  defaultValue={2025}
+                  defaultValue={project.year}
                   aria-describedby='year-error'
                   required
               />
@@ -78,6 +81,7 @@ export default function CreateProjectForm({technos}: {technos: Techno[]}) {
               <Checkbox
                 className='col-span-1 me-2'
                 name="ismobile"
+                defaultChecked={project.ismobile}
               />
                 {t('mobile')}
             </div>
@@ -85,6 +89,7 @@ export default function CreateProjectForm({technos}: {technos: Techno[]}) {
               <Checkbox
                 className='col-span-1 me-2'
                 name="isweb"
+                defaultChecked={project.isweb}
               />
                 {t('web')}
             </div>
@@ -105,11 +110,11 @@ export default function CreateProjectForm({technos}: {technos: Techno[]}) {
           <Label className='mb-2'>{t('dashboardProjects.create.technos-label')}</Label>
           <div className='grid grid-cols-3 gap-x-2 gap-y-4'>
             {technos.map((techno) => {
-              return <div><Checkbox
+              return <div key={techno.id}><Checkbox
                 className='col-span-1 me-2'
-                key={techno.id}
                 name="technos" 
                 value={techno.id}
+                defaultChecked={project.technos.filter((projectTechno) => projectTechno.id === techno.id).length > 0}
               />
                 {techno.name}
               </div>
@@ -128,6 +133,7 @@ export default function CreateProjectForm({technos}: {technos: Techno[]}) {
           <Textarea
             id='description'
             name='description'
+            defaultValue={project.description}
           ></Textarea>
         </div>
         <div className='col-span-1 mt-4 mb-4'>

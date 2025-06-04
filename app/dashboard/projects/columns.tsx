@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import DeleteProjectDialog from "@/components/ui/dashboard/projects/delete-project-dialog";
 import { Project } from "@/lib/_objects/project";
 import { ColumnDef } from "@tanstack/react-table";
-import { PencilIcon, Trash2Icon } from "lucide-react";
+import { CheckSquare2Icon, PencilIcon, Trash2Icon } from "lucide-react";
 import Link from "next/link";
 
 export const projectsIndexColumns: ColumnDef<Project>[] = [
@@ -20,12 +20,38 @@ export const projectsIndexColumns: ColumnDef<Project>[] = [
         header: "Name",
     },
     {
-        id: 'actions',
-        header: "Actions",
-        cell: ({ row }) => {
+        accessorKey: "year",
+        header: "Year",
+    },
+    {
+        header: "Mobile",
+        cell: ({row}) => {
             const project = row.original;
             return (
                 <div>
+                    {project.ismobile && <CheckSquare2Icon></CheckSquare2Icon>}
+                </div>
+            );
+        }
+    },
+    {
+        header: "Web",
+        cell: ({row}) => {
+            const project = row.original;
+            return (
+                <div>
+                    {project.isweb && <CheckSquare2Icon></CheckSquare2Icon>}
+                </div>
+            );
+        }
+    },
+    {
+        id: 'actions',
+        header: () => <div className="text-right">Actions</div>,
+        cell: ({ row }) => {
+            const project = row.original;
+            return (
+                <div className="text-right">
                     <Link className="mr-4" href={`/dashboard/projects/${project.id}/edit`}>
                         <Button >
                             <PencilIcon/>

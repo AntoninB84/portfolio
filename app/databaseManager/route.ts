@@ -33,8 +33,8 @@ async function createProjectTable() {
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    isMobile BOOLEAN NOT NULL,
-    isWeb BOOLEAN NOT NULL,
+    ismobile BOOLEAN NOT NULL,
+    isweb BOOLEAN NOT NULL,
     year SMALLINT NOT NULL
   );`;
 	return data;
@@ -67,7 +67,7 @@ async function createObjectImageTable() {
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     objectId UUID NOT NULL,
     objectType VARCHAR(255) NOT NULL,
-    fileName TEXT NOT NULL
+    filename TEXT NOT NULL
   );`;
 	return data;
 }

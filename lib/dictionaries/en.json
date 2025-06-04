@@ -61,16 +61,26 @@
       "name-label": "Name",
       "name-placeholder": "Enter a name",
       "year-label": "Year",
-      "description-label": "Description"
+      "support-label": "Support",
+      "description-label": "Description",
+      "technos-label": "Used technologies",
+      "images-label": "Images"
     },
     "edit": {
-      "title": "Update project : {name}"
+      "title": "Update project : {name}",
+      "images": "Images"
     },
     "delete-dialog": {
       "title": "Delete this project ?",
       "description": "You are about to delete <b>{name}</b>. Are you sure ? This action is not reversible."
+    },
+    "delete-image-dialog": {
+      "title": "Delete this image ?",
+      "description": "You are about to delete an image. Are you sure ? This action is not reversible."
     }
   },
+  "mobile": "Mobile",
+  "web": "Web",
   "back": "Go back",
   "validate": "Validate",
   "cancel": "Cancel"
