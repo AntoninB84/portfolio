@@ -67,7 +67,9 @@ async function createObjectImageTable() {
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     objectId UUID NOT NULL,
     objectType VARCHAR(255) NOT NULL,
-    filename TEXT NOT NULL
+    filename TEXT NOT NULL,
+    imagetype TEXT,
+    position SMALLINT
   );`;
 	return data;
 }

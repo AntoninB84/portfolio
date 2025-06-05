@@ -147,3 +147,11 @@
 .dashboard-page-title {
   @apply font-bold text-xl;
 }
+
+.project-description-titles {
+  font-weight: bold;
+}
+.project-description-pitch {
+  font-style: italic;
+  line-height: 1.2;
+}

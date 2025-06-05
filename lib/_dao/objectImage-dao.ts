@@ -2,7 +2,7 @@
 
 import postgres from 'postgres';
 import { deleteFile, uploadFile } from '../upload-actions';
-import { ObjectImage } from '../_objects/objectImage';
+import { ImageType, ObjectImage } from '../_objects/objectImage';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require'});
 
@@ -30,7 +30,9 @@ export async function fetchObjectImageById(id: string) {
         objectImages.id,
         objectImages.filename,
         objectImages.objectId,
-        objectImages.objectType
+        objectImages.objectType,
+        objectImages.imagetype,
+        objectImages.position 
       FROM objectImages
       WHERE objectImages.id = ${id};
     `;
@@ -51,9 +53,12 @@ export async function fetchObjectImageByObjectTypeAndId(objectType: string, obje
         objectImages.id,
         objectImages.filename,
         objectImages.objectId,
-        objectImages.objectType
+        objectImages.objectType,
+        objectImages.imagetype,
+        objectImages.position 
       FROM objectImages
-      WHERE objectImages.objectid = ${objectId} AND objectImages.objectType = ${objectType};
+      WHERE objectImages.objectid = ${objectId} AND objectImages.objectType = ${objectType}
+      ORDER BY objectImages.position ASC;
     `;
 
     const objectImage = data.map((objectImage) => ({...objectImage}));

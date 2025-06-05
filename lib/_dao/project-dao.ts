@@ -1,10 +1,10 @@
 'use server';
 
 import postgres from 'postgres';
-import { Project, ProjectForm, ProjectFormSchema } from '../_objects/project';
+import { Project, ProjectFormSchema } from '../_objects/project';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-import { ImageObjectType } from '../_objects/objectImage';
+import { ImageObjectType, ImageType } from '../_objects/objectImage';
 import { toArray } from '../utils';
 import { createProjectTechno, deleteProjectTechno, fetchTechnosIdsByProjectId } from './projectTechno-dao';
 import { createObjectImage, deleteObjectImageByObjectIdAndObjectType, fetchObjectImageByObjectTypeAndId } from './objectImage-dao';
@@ -144,8 +144,16 @@ export async function updateProject(id: string, prevState: ProjectFormState, for
 
 export async function fetchProjects() {
   try {
-    const data = await sql<Project[]>`SELECT * FROM projects`;
-    return data;
+    const data = await sql<Project[]>`SELECT * FROM projects ORDER BY year DESC`;
+
+    const projects = data.map((project) => ({...project}));
+
+    for(var project of projects){
+      project.technos = await fetchTechnosByProjectId(project.id);
+      project.images = await fetchObjectImageByObjectTypeAndId(ImageObjectType.Project, project.id);
+    }
+
+    return projects;
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch projects data.');
