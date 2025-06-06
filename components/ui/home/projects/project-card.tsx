@@ -5,7 +5,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "../../tooltip";
 
 export default function ProjectCard({project, logofilename}: {project: Project, logofilename: string|undefined}){
     return (
-         <Card className="p-8 md:w-1/2">
+         <Card className="p-8 col-span-4">
             <div className="flex justify-between">
                 <div className="flex gap-8 items-center">
                     <Image
@@ -17,6 +17,7 @@ export default function ProjectCard({project, logofilename}: {project: Project, 
                     />
                     <div className="text-2xl">
                         {project.name}
+                        <span className="text-sm ml-2"> - {project.year}</span>
                     </div>
                 </div>
                 

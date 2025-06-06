@@ -1,12 +1,19 @@
+import Image from "next/image";
+
 export default function Home() {
     return (
         <main className="flex flex-col gap-[32px] items-center p-8">
-            <div className="w-6/10 flex flex-col gap-8 mb-[100px]">
+            <div className="w-6/10 flex flex-col  items-center gap-8 mb-[100px]">
                 <p>This website is more than just a portfolio—it's also a personal project I developed while <span className="font-bold">teaching myself Next.js</span>. I wanted to build something that would <span className="font-bold">showcase both my skills and my ability to learn and apply new technologies</span>. </p>
                 <p>The site has two parts: a public-facing section where you can learn more about me and explore the projects I've worked on, and a <span className="font-bold">private admin dashboard</span> that functions as a lightweight CMS. This back-office allows me to manage the content of the “Projects” page dynamically.</p>
                 <p>While the site is fully functional, I see it as a <span className="font-bold">work in progress</span>. There are still areas I plan to improve, whether in terms of code structure, performance optimization, or development best practices. That's part of the reason why I built it: to <span className="font-bold">experiment, learn, and refine</span>. The full source code is <a href="https://github.com/AntoninB84/portfolio">available on GitHub</a>, so feel free to explore how it's built and follow its evolution.</p>
-                <div>
-
+                <div className="h-[200px] w-[200px] relative rounded-full bg-accent">
+                    <Image
+                        src={'/profil.jpg'}
+                        alt="Photo"
+                        fill
+                        className="rounded-full"
+                    />
                 </div>
                 <p>My name is <span className="font-bold">Antonin Billot</span>, I'm a French software developer with <span className="font-bold">3-4 years of professional experience</span> in web and mobile application development.</p> 
                 <p> I started my career at <span className="font-bold">Bleu122</span>, a small French company specializing in building custom digital solutions for clients. There, I had the opportunity to work on a wide range of projects, helping me grow both technically and professionally.</p>

@@ -9,7 +9,7 @@ export default async function Projects() {
     const projects = await fetchProjects();
 
     return (
-        <div className="flex flex-col gap-20 ps-10 pe-10">
+        <div className="flex flex-col gap-20 p-20">
             {
                 projects.map(project => {
                     const logos = project.images.filter((image) => {
@@ -17,12 +17,12 @@ export default async function Projects() {
                     });
                     const logofilename = (logos.length > 0) ? logos[0].filename : undefined;
 
-                    return <div className="flex flex-col md:flex-row md:gap-10 gap-5" key={project.name}>
+                    return <div className="grid grid-cols-6 gap-16" key={project.name}>
                         <ImageCarousel project={project} logofilename={logofilename} />
                         <ProjectCard project={project} logofilename={logofilename} />
                     </div>
                 })
             }
-        </div>
+    </div>
     );
 }

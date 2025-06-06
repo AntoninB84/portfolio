@@ -151,7 +151,18 @@
 .project-description-titles {
   font-weight: bold;
 }
+.project-description-subtitles {
+  font-weight:500;
+}
 .project-description-pitch {
   font-style: italic;
   line-height: 1.2;
+}
+.project-description-spaces {
+  margin-top: 8px;
+}
+
+ul {
+  list-style-type: disc;
+  padding-left: 1rem;
 }
