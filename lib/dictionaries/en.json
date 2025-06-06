@@ -11,6 +11,15 @@
     "dark": "Dark",
     "system": "System"
   },
+  "contactPage":{
+    "title": "Contact me",
+    "subtitle": "I'm actively exploring new professional opportunities.<br /> Reach out using the form below if you'd like to discuss a role, a project, or simply connect.",
+    "from_label": "From",
+    "from_placeholder": "Enter your email address",
+    "message_label": "Message",
+    "message_placeholder": "Type your message here.",
+    "send_button_cta": "Send"
+  },
   "loginPage": {
     "title": "Admin dashboard",
     "subtitle": "Please login to continue",
