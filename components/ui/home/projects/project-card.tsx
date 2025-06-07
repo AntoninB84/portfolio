@@ -24,8 +24,8 @@ export default function ProjectCard({project, logofilename}: {project: Project, 
                 <div className="justify-self-end">
                     <div className="flex flex-col">
                         <div className="font-bold">Type</div>
-                        {project.ismobile ? "Mobile": ""} 
-                        {project.isweb ? "Web" : ""}
+                        <div>{project.ismobile ? "Mobile": ""} </div>
+                        <div>{project.isweb ? "Web" : ""}</div>
                     </div>
                     
                 </div>
