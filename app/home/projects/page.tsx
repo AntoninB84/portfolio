@@ -17,7 +17,7 @@ export default async function Projects() {
                     });
                     const logofilename = (logos.length > 0) ? logos[0].filename : undefined;
 
-                    return <div className="grid grid-cols-6 gap-16" key={project.name}>
+                    return <div className="flex flex-col-reverse lg:grid lg:grid-cols-6 gap-16" key={project.name}>
                         <ImageCarousel project={project} logofilename={logofilename} />
                         <ProjectCard project={project} logofilename={logofilename} />
                     </div>
