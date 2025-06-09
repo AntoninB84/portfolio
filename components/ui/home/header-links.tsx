@@ -25,7 +25,7 @@ export default function HeaderLinks() {
                     className= {clsx(
                         " uppercase font-bold" +
                         " hover:text-neutral-700 hover:dark:text-neutral-100" + 
-                        "  xs:text-sm sm:text-md md:text-lg",
+                        "  text-xs sm:text-md md:text-lg",
                         {
                             " text-main " : link.href === pathName,
                         },

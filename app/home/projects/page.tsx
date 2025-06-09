@@ -9,7 +9,7 @@ export default async function Projects() {
     const projects = await fetchProjects();
 
     return (
-        <div className="flex flex-col gap-20 p-20">
+        <div className="flex flex-col gap-20 p-1 sm:p-20">
             {
                 projects.map(project => {
                     const logos = project.images.filter((image) => {
