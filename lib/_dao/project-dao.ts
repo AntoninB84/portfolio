@@ -144,7 +144,7 @@ export async function updateProject(id: string, prevState: ProjectFormState, for
 
 export async function fetchProjects() {
   try {
-    const data = await sql<Project[]>`SELECT * FROM projects ORDER BY year DESC`;
+    const data = await sql<Project[]>`SELECT * FROM projects ORDER BY position ASC`;
 
     const projects = data.map((project) => ({...project}));
 
