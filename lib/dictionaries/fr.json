@@ -5,12 +5,92 @@
     "contact": "Contact",
     "login": "Connexion"
   },
-  "login": {
-    "title": "Please login to continue",
+  "themeToggler": {
+    "theme": "Theme",
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Systeme"
+  },
+  "contactPage":{
+    "title": "Me contacter",
+    "subtitle": "Je suis activement à la recherche de nouvelles opportunités professionnelles.<br /> Contactez-moi via le formulaire ci-dessous si vous souhaitez discuter d’un poste, d’un projet ou simplement échanger.",
+    "from_label": "Email",
+    "from_placeholder": "Entrez votre adresse e-mail",
+    "message_label": "Message",
+    "message_placeholder": "Ecrivez votre message ici.",
+    "send_button_cta": "Envoyer"
+  },
+  "loginPage": {
+    "title": "Dashboard administrateur",
+    "subtitle": "Veuillez vous connecter pour accéder à la plateforme d'administration.",
     "email": "Email",
-    "email_placeholder": "Enter your email address",
-    "password": "Password",
-    "password_placeholder": "Enter password",
-    "login_button_cta": "Log in"
-  }
+    "email_placeholder": "Entrez votre adresse e-mail",
+    "password": "Mot de passe",
+    "password_placeholder": "Entrez votre mot de passe",
+    "login_button_cta": "Se connecter"
+  },
+  "dashboardPage": {
+    "navlinks": {
+      "home": "Dashboard",
+      "projects": "Projets",
+      "technos": "Technologies"
+    },
+    "signout": "Se déconnecter"
+  },
+  "dashboardTechnos": {
+    "index": {
+      "title" : "Technologies",
+      "create-button": "Créer une techno",
+      "name-column-title": "Nom",
+      "actions-column-title": "Actions"
+    },
+    "create": {
+      "title": "Créer une techno",
+      "name-label": "Nom",
+      "name-placeholder": "Entrer un nom",
+      "logo-label": "Logo"
+    },
+    "edit": {
+      "title": "Modifier la techno : {name}"
+    },
+    "delete-dialog": {
+      "title": "Supprimer cette techno ?",
+      "description": "Vous allez supprimer la techno <b>{name}</b>. Êtes-vous certain(e) ? Cette action est irréversible."
+    }
+  },
+  "dashboardProjects": {
+    "index": {
+      "title" : "Projets",
+      "create-button": "Créer un projet",
+      "name-column-title": "Nom",
+      "actions-column-title": "Actions"
+    },
+    "create": {
+      "title": "Créer un project",
+      "name-label": "Nom",
+      "name-placeholder": "Entrer un nom",
+      "year-label": "Année",
+      "support-label": "Support",
+      "description-label": "Description",
+      "technos-label": "Technologies utilisées",
+      "images-label": "Images"
+    },
+    "edit": {
+      "title": "Modifier le projet : {name}",
+      "images": "Images"
+    },
+    "delete-dialog": {
+      "title": "Supprimer ce projet ?",
+      "description": "Vous allez supprimer le projet <b>{name}</b>. Êtes-vous certain(e) ? Cette action est irréversible."
+    },
+    "delete-image-dialog": {
+      "title": "Supprimer cette image ?",
+      "description": "Vous allez supprimer une image. Êtes-vous certain(e) ? Cette action est irréversible."
+    }
+  },
+  "mobile": "Mobile",
+  "web": "Web",
+  "back": "Retour",
+  "validate": "Valider",
+  "cancel": "Annuler"
 }

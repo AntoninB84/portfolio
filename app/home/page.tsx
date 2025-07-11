@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Home() {
     return (
         <main className="flex flex-col items-center p-8">
-            <div className="md:w-6/10 flex flex-col  items-center gap-8 mb-[100px]">
+            <div className="md:w-6/10 flex flex-col  items-center gap-8 mb-[100px] mt-8 sm:mt-0">
                 <p>This website is more than just a portfolio—it's also a personal project I developed while <span className="font-bold">teaching myself Next.js</span>. I wanted to build something that would <span className="font-bold">showcase both my skills and my ability to learn and apply new technologies</span>. </p>
                 <p>The site has two parts: a public-facing section where you can learn more about me and explore the projects I've worked on, and a <span className="font-bold">private admin dashboard</span> that functions as a lightweight CMS. This back-office allows me to manage the content of the “Projects” page dynamically.</p>
                 <p>While the site is fully functional, I see it as a <span className="font-bold">work in progress</span>. There are still areas I plan to improve, whether in terms of code structure, performance optimization, or development best practices. That's part of the reason why I built it: to <span className="font-bold">experiment, learn, and refine</span>. The full source code is <a className="text-blue-500 hover:text-blue-800" href="https://github.com/AntoninB84/portfolio">available on GitHub</a>, so feel free to explore how it's built and follow its evolution.</p>

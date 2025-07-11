@@ -8,7 +8,7 @@ export default function HomeLayout({
 }) {
   return (
       <div className="flex flex-col justify-between min-h-screen">
-        <header className="flex flex-row justify-center gap-10 md:gap-30 p-4 border-b-1 border-b-neutral-200">
+        <header className="flex flex-row justify-center gap-10 md:gap-20 lg:gap-30 p-4 border-b-1 border-b-neutral-200">
             <HeaderLinks></HeaderLinks>
         </header>
         {children}

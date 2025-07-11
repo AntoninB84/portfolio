@@ -5,6 +5,7 @@ import { quicksand } from "./fonts";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ModeToggle } from "@/components/ui/theme-toggle-button";
+import { LocaleToggle } from "@/components/ui/locale-toggle-button";
 
 export const metadata: Metadata = {
   title: "Portfolio - Billot",
@@ -30,8 +31,11 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <div className="absolute right-3 top-[90px] md:top-3">
-              <ModeToggle></ModeToggle>
+            <div className="absolute right-3 top-[70px] sm:top-[3px] md:top-3">
+              <div className="flex gap-2">
+                <ModeToggle></ModeToggle>
+                <LocaleToggle></LocaleToggle>
+              </div>
             </div>
             {children}
           </ThemeProvider>
