@@ -11,6 +11,19 @@
     "dark": "Dark",
     "system": "System"
   },
+  "homePage": {
+    "section1": "This website is more than just a portfolio—it's also a personal project I developed while <b>teaching myself Next.js</b>. I wanted to build something that would <b>showcase both my skills and my ability to learn and apply new technologies</b>. ",
+    "section2": "The site has two parts: a public-facing section where you can learn more about me and explore the projects I've worked on, and a <b>private admin dashboard</b> that functions as a lightweight CMS. This back-office allows me to manage the content of the “Projects” page dynamically.",
+    "section3": "While the site is fully functional, I see it as a <b>work in progress</b>. There are still areas I plan to improve, whether in terms of code structure, performance optimization, or development best practices. That's part of the reason why I built it: to <b>experiment, learn, and refine</b>. The full source code is <a>available on GitHub</a>, so feel free to explore how it's built and follow its evolution.",
+    "section4": "My name is <b>Antonin Billot</b>, I'm a French software developer with <b>3-4 years of professional experience</b> in web and mobile application development.",
+    "section5": " I started my career at <b>Bleu122</b>, a small French company specializing in building custom digital solutions for clients. There, I had the opportunity to work on a wide range of projects, helping me grow both technically and professionally.",
+    "section6": "My journey into development began with a strong desire to <b>solve real-world problems through practical solutions</b>. One of my first personal projects was an app to manage my ideas and personal goals—complete with recurring reminders and habit tracking features. I also built a prototype for a family book cataloging app, designed to scan barcodes and automatically fill in metadata using external APIs.",
+    "section7": "In my early academic years, I learned the foundations of web development—HTML, CSS, JavaScript, and PHP. To bring my personal ideas to life, I <b>self-taught Java and Kotlin</b> for mobile development, and later added <b>React and Node.js</b> for building modern web applications and APIs.",
+    "section8": "This passion eventually led me to pursue a third phase of higher education, focused on mobile app development. I completed my final year as an apprentice at Bleu122, where I was offered a full-time position after graduation.",
+    "section9": "During my time at Bleu122, I worked as a <b>fullstack developer using technologies like Grails (Groovy/Java), Vue.js, and Flutter</b>. I particularly enjoyed working on a variety of different projects, each with unique challenges and requirements—something that taught me a lot in a short time.",
+    "section10": "What <b>motivates me the most in programming</b> is the process of moving from a problem to a fully functioning solution. There's something deeply satisfying about watching a project take shape <b>step by step</b>. While my experience so far has focused on delivering <b>functional and visually complete products</b>, I'm now looking to <b>deepen my expertise</b> in software quality: <i>clean code, proper development workflows (PRs, CI/CD), and testing practices (unit and functional tests)</i>.",
+    "section11": "I'm passionate about building meaningful digital experiences and eager to join a team where I can continue learning, growing, and contributing to high-quality software projects"
+  },
   "contactPage":{
     "title": "Contact me",
     "subtitle": "I'm actively exploring new professional opportunities.<br /> Reach out using the form below if you'd like to discuss a role, a project, or simply connect.",
