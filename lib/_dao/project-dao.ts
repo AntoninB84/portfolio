@@ -9,6 +9,7 @@ import { toArray } from '../utils';
 import { createProjectTechno, deleteProjectTechno, fetchTechnosIdsByProjectId } from './projectTechno-dao';
 import { createObjectImage, deleteObjectImageByObjectIdAndObjectType, fetchObjectImageByObjectTypeAndId } from './objectImage-dao';
 import { fetchTechnosByProjectId } from './techno-dao';
+import { createTranslation, deleteTranslationByObjectIdAndObjectType, fetchTranslationByObjectTypeAndId, fetchTranslationByObjectTypeAndIdAndLocale, updateTranslation } from './translation-dao';
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require'});
 
@@ -18,7 +19,7 @@ const UpdateProject = ProjectFormSchema.omit({id: true});
 export type ProjectFormState = {
   errors?: {
     name?: string[];
-    description?: string[];
+    descriptions?: string[];
     year?: string[];
     ismobile?: string[];
     isweb?: string[];
@@ -32,7 +33,10 @@ export async function createProject(prevState: ProjectFormState, formData: FormD
   const validatedFields = await CreateProject.safeParseAsync({
       name: formData.get('name'),
       year: formData.get('year'),
-      description: formData.get('description'),
+      descriptions: (() => {
+        const desc = formData.get('descriptions');
+        return typeof desc === 'string' ? JSON.parse(desc) : undefined;
+      })(),
       ismobile: formData.get('ismobile'),
       isweb: formData.get('isweb'),
       technos: formData.getAll('technos'),
@@ -46,16 +50,22 @@ export async function createProject(prevState: ProjectFormState, formData: FormD
     };
   }
 
-  const { name, year, description, ismobile, isweb, technos, images } = validatedFields.data;
+  const { name, year, descriptions, ismobile, isweb, technos, images } = validatedFields.data;
 
   try{
     const data = await sql`
-      INSERT INTO projects (name, year, description, ismobile, isweb)
-      VALUES (${name}, ${year}, ${description}, ${ismobile ? true : false}, ${isweb ? true : false})
+      INSERT INTO projects (name, year, ismobile, isweb)
+      VALUES (${name}, ${year}, ${ismobile ? true : false}, ${isweb ? true : false})
       RETURNING id
     `;
     const projectId = data[0].id;
 
+    // Creating translations for the project
+    descriptions.forEach(async (description: { locale: string; content: string; }) => {
+      await createTranslation(description.content, description.locale, 'Project', projectId);
+    });
+
+    // Creating links between project and techno
     if(technos){
       const technoIds = toArray(technos);
       for(const technoId of technoIds){
@@ -63,6 +73,7 @@ export async function createProject(prevState: ProjectFormState, formData: FormD
       }
     }
 
+    // Creating images for the project
     if(images){
       const imagesAsArray = toArray(images);
       for(const image of imagesAsArray){
@@ -85,7 +96,10 @@ export async function updateProject(id: string, prevState: ProjectFormState, for
     const validatedFields = await UpdateProject.safeParseAsync({
         name: formData.get('name'),
         year: formData.get('year'),
-        description: formData.get('description'),
+        descriptions: (() => {
+          const desc = formData.get('descriptions');
+          return typeof desc === 'string' ? JSON.parse(desc) : undefined;
+        })(),
         ismobile: formData.get('ismobile'),
         isweb: formData.get('isweb'),
         technos: formData.getAll('technos'),
@@ -99,7 +113,7 @@ export async function updateProject(id: string, prevState: ProjectFormState, for
       };
     }
 
-    const { name, year, description, ismobile, isweb, technos, images } = validatedFields.data;
+    const { name, year, descriptions, ismobile, isweb, technos, images } = validatedFields.data;
 
     const currentTechnosIds = toArray(technos);
     const previousTechnosIds = await fetchTechnosIdsByProjectId(id);
@@ -109,10 +123,21 @@ export async function updateProject(id: string, prevState: ProjectFormState, for
     try {
         await sql`
             UPDATE projects
-            SET name = ${name}, year = ${year}, description = ${description},
+            SET name = ${name}, year = ${year},
             ismobile = ${ismobile ? true : false}, isweb = ${isweb ? true : false} 
             WHERE id = ${id}
         `;
+
+        //Updating translations
+        descriptions.forEach(async (description: { locale: string; content: string; }) => {
+           const translationExists = await fetchTranslationByObjectTypeAndIdAndLocale('Project', id, description.locale);
+            if (translationExists.length > 0) {
+              await updateTranslation(description.content, description.locale, 'Project', id);
+              return; // If translation already exists, skip creation
+            }
+            // If translation does not exist, create it
+            await createTranslation(description.content, description.locale, 'Project', id);
+        });
 
         //Creating new links between project and techno
         for(const technoId of toCreateProjectTechnoIds){
@@ -142,13 +167,15 @@ export async function updateProject(id: string, prevState: ProjectFormState, for
     redirect('/dashboard/projects');
 }
 
-export async function fetchProjects() {
+export async function fetchProjects(locale: string = 'en') {
   try {
     const data = await sql<Project[]>`SELECT * FROM projects ORDER BY position ASC`;
 
     const projects = data.map((project) => ({...project}));
 
     for(var project of projects){
+      const translations = await fetchTranslationByObjectTypeAndIdAndLocale('Project', project.id, locale);
+      project.description = translations.length > 0 ? translations[0].content : "";
       project.technos = await fetchTechnosByProjectId(project.id);
       project.images = await fetchObjectImageByObjectTypeAndId(ImageObjectType.Project, project.id);
     }
@@ -171,6 +198,8 @@ export async function fetchProjectById(id: string) {
     const projects = data.map((project) => ({...project}));
 
     var project = projects[0];
+    const translations = await fetchTranslationByObjectTypeAndId('Project', project.id);
+    project.description = JSON.stringify(translations);
     project.technos = await fetchTechnosByProjectId(id);
     project.images = await fetchObjectImageByObjectTypeAndId(ImageObjectType.Project, id);
 
@@ -184,5 +213,6 @@ export async function fetchProjectById(id: string) {
 export async function deleteProject(id: string){
     await sql`DELETE FROM projects WHERE id = ${id}`;
     await deleteObjectImageByObjectIdAndObjectType(id, ImageObjectType.Project);
+    await deleteTranslationByObjectIdAndObjectType(id, 'Project');
     revalidatePath('/dashboard/projects');
 }

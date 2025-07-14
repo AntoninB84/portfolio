@@ -16,7 +16,7 @@ export type Project = {
 export type ProjectForm = {
   id: string;
   name: string;
-  description: string;
+  descriptions: string;
   year: number;
   ismobile: boolean;
   isweb: boolean;
@@ -27,7 +27,10 @@ export type ProjectForm = {
 export const ProjectFormSchema = z.object({
     id: z.string(),
     name: z.string(),
-    description: z.string(),
+    descriptions: z.array(z.object({
+      content: z.string(),
+      locale: z.string(),
+    })),
     year: z.string()
           .transform((value) => (value === "" ? "" : Number(value)))
           .refine((value) => !isNaN(Number(value)), {

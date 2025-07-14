@@ -11,6 +11,7 @@ import { Label } from '../../label';
 import { Textarea } from '../../textarea';
 import { Checkbox } from '../../checkbox';
 import { Project } from '@/lib/_objects/project';
+import { useState } from 'react';
 
 export default function EditProjectForm({project, technos}: {project: Project, technos: Techno[]}) {
 
@@ -20,8 +21,57 @@ export default function EditProjectForm({project, technos}: {project: Project, t
 
   const t = useTranslations();
 
+  // Supported languages
+  const languages = ['fr', 'en'];
+
+  // Parse project.description JSON and map to { [locale]: content }
+  const translations: { [key: string]: string } = {};
+  try {
+    const descArr = JSON.parse(project.description);
+    descArr.forEach((desc: { locale: string; content: string }) => {
+      translations[desc.locale] = desc.content;
+    });
+  } catch {
+    languages.forEach(lang => translations[lang] = '');
+  }
+
+  const [selectedLang, setSelectedLang] = useState('fr');
+  const [descriptions, setDescriptions] = useState<{[key: string]: string}>({
+    fr: translations['fr'] || '',
+    en: translations['en'] || '',
+  });
+
+  // Handle description change
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescriptions({
+      ...descriptions,
+      [selectedLang]: e.target.value,
+    });
+  };
+
+  // On submit, add all descriptions to FormData
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    // Remove any previous descriptions
+    formData.delete('descriptions');
+
+    let descriptionArray: { locale: string; content: string; }[] = [];
+    languages.forEach((lang) => {
+      descriptionArray.push({
+        locale: lang,
+        content: descriptions[lang],
+      });
+    });
+    formData.append('descriptions', JSON.stringify(descriptionArray));
+
+    formAction(formData);
+  };
+
   return (
-    <form action={formAction} aria-describedby='form-error'>
+    <form onSubmit={handleSubmit} aria-describedby='form-error'>
       <div className='grid grid-cols-4 gap-4'>
         <div className='col-span-2'>
           {/* Name */}
@@ -128,13 +178,37 @@ export default function EditProjectForm({project, technos}: {project: Project, t
           </div>
         </div>
         <div className='col-span-4'>
-          {/* Description */}
-          <Label htmlFor="description" className='mb-2'>{t('dashboardProjects.create.description-label')}</Label>
+          {/* Language selector */}
+          <div className="mb-2 flex gap-2">
+            {languages.map((lang) => (
+              <Button
+                key={lang}
+                type="button"
+                variant={selectedLang === lang ? 'default' : 'outline'}
+                onClick={() => setSelectedLang(lang)}
+              >
+                {lang.toUpperCase()}
+              </Button>
+            ))}
+          </div>
+          {/* Description input for selected language */}
+          <Label htmlFor="descriptions" className='mb-2'>
+            {t('dashboardProjects.create.description-label')} ({selectedLang.toUpperCase()})
+          </Label>
           <Textarea
-            id='description'
-            name='description'
-            defaultValue={project.description}
-          ></Textarea>
+            id='descriptions'
+            name='descriptions'
+            value={descriptions[selectedLang]}
+            onChange={handleDescriptionChange}
+          />
+          {/* Hidden input to satisfy validation (not used for actual data) */}
+          <input type="hidden" name="descriptions" />
+          <div id="descriptions-error" aria-live="polite" aria-atomic="true">
+            {state.errors?.descriptions &&
+              state.errors.descriptions.map((error: string) => (
+                <p className='mt-2 text-sm text-error' key={error}>{error}</p>
+              ))}
+          </div>
         </div>
         <div className='col-span-1 mt-4 mb-4'>
           {/* Images */}

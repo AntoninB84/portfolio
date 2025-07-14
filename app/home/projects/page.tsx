@@ -3,10 +3,12 @@ import ImageCarousel from "@/components/ui/home/projects/image-carousel";
 import ProjectCard from "@/components/ui/home/projects/project-card";
 import { fetchProjects } from "@/lib/_dao/project-dao";
 import { ImageType } from "@/lib/_objects/objectImage";
+import { getUserLocale } from "@/lib/locale";
 
 export default async function Projects() {
 
-    const projects = await fetchProjects();
+    const userLocale = await getUserLocale();
+    const projects = await fetchProjects(userLocale);
 
     return (
         <div className="flex flex-col gap-20 p-1 sm:p-20">

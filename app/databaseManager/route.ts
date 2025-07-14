@@ -32,7 +32,6 @@ async function createProjectTable() {
 	const data = await sql`CREATE TABLE IF NOT EXISTS projects (
     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    description TEXT NOT NULL,
     ismobile BOOLEAN NOT NULL,
     isweb BOOLEAN NOT NULL,
     year SMALLINT NOT NULL
@@ -74,6 +73,17 @@ async function createObjectImageTable() {
 	return data;
 }
 
+async function createTranslationTable() {
+	const data = await sql`CREATE TABLE IF NOT EXISTS translations (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    objectId UUID NOT NULL,
+    objectType VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    locale VARCHAR(10) NOT NULL
+  );`;
+	return data;
+}
+
 export async function GET() {
   try {
     const result = await sql.begin((sql) => [
@@ -83,6 +93,7 @@ export async function GET() {
       // createTechnoTable(),
       // createProjectTechnoTable(),
       // createObjectImageTable()
+      // createTranslationTable()
     ]);
 
     return Response.json({ message: 'Database created successfully' });
