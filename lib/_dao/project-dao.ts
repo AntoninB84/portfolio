@@ -169,7 +169,7 @@ export async function updateProject(id: string, prevState: ProjectFormState, for
 
 export async function fetchProjects(locale: string = 'en') {
   try {
-    const data = await sql<Project[]>`SELECT * FROM projects ORDER BY position ASC`;
+    const data = await sql<Project[]>`SELECT * FROM projects ORDER BY position DESC`;
 
     const projects = data.map((project) => ({...project}));
 
