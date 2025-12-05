@@ -32,14 +32,7 @@
       "request": "launch",
       "program": "${workspaceFolder}/node_modules/next/dist/bin/next",
       "runtimeArgs": ["--inspect"],
-      "skipFiles": ["<node_internals>/**"],
-      "serverReadyAction": {
-        "action": "debugWithEdge",
-        "killOnServerStop": true,
-        "pattern": "- Local:.+(https?://.+)",
-        "uriFormat": "%s",
-        "webRoot": "${workspaceFolder}"
-      }
+      "skipFiles": ["<node_internals>/**"]
     }
   ]
 }
