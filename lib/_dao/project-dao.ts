@@ -169,16 +169,85 @@ export async function updateProject(id: string, prevState: ProjectFormState, for
 
 export async function fetchProjects(locale: string = 'en') {
   try {
-    const data = await sql<Project[]>`SELECT * FROM projects ORDER BY position DESC`;
+    // Fetch all projects with their translations in a single query
+    const projectsData = await sql<Project[]>`
+      SELECT 
+        p.*,
+        COALESCE(t.content, '') as description
+      FROM projects p
+      LEFT JOIN translations t ON t.objectid = p.id 
+        AND t.objectType = 'Project' 
+        AND t.locale = ${locale}
+      ORDER BY p.position DESC
+    `;
 
-    const projects = data.map((project) => ({...project}));
-
-    for(var project of projects){
-      const translations = await fetchTranslationByObjectTypeAndIdAndLocale('Project', project.id, locale);
-      project.description = translations.length > 0 ? translations[0].content : "";
-      project.technos = await fetchTechnosByProjectId(project.id);
-      project.images = await fetchObjectImageByObjectTypeAndId(ImageObjectType.Project, project.id);
+    if (projectsData.length === 0) {
+      return [];
     }
+
+    const projectIds = projectsData.map(p => p.id);
+
+    // Fetch all technos for all projects in a single query
+    const technosData = await sql<any[]>`
+      SELECT
+        pt.project_id,
+        t.id,
+        t.name,
+        oi.id as logoId,
+        oi.filename as logofilename
+      FROM projectTechnos pt
+      JOIN technos t ON t.id = pt.techno_id
+      LEFT JOIN objectImages oi ON oi.objectId = t.id 
+        AND oi.objectType = ${ImageObjectType.Techno}
+      WHERE pt.project_id = ANY(${projectIds})
+    `;
+
+    // Fetch all images for all projects in a single query
+    const imagesData = await sql<any[]>`
+      SELECT
+        oi.id,
+        oi.filename,
+        oi.objectId,
+        oi.objectType,
+        oi.imagetype,
+        oi.position
+      FROM objectImages oi
+      WHERE oi.objectId = ANY(${projectIds})
+        AND oi.objectType = ${ImageObjectType.Project}
+      ORDER BY oi.position ASC
+    `;
+
+    // Group technos and images by project ID
+    const technosByProject = new Map<string, any[]>();
+    const imagesByProject = new Map<string, any[]>();
+
+    technosData.forEach(techno => {
+      const projectId = techno.project_id;
+      if (!technosByProject.has(projectId)) {
+        technosByProject.set(projectId, []);
+      }
+      technosByProject.get(projectId)!.push({
+        id: techno.id,
+        name: techno.name,
+        logoId: techno.logoid,
+        logofilename: techno.logofilename
+      });
+    });
+
+    imagesData.forEach(image => {
+      const projectId = image.objectid;
+      if (!imagesByProject.has(projectId)) {
+        imagesByProject.set(projectId, []);
+      }
+      imagesByProject.get(projectId)!.push(image);
+    });
+
+    // Combine all data
+    const projects = projectsData.map(project => ({
+      ...project,
+      technos: technosByProject.get(project.id) || [],
+      images: imagesByProject.get(project.id) || []
+    }));
 
     return projects;
   } catch (error) {
